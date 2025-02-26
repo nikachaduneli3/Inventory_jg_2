@@ -7,7 +7,7 @@
    - write_date : DateTimeField : auto_now
    - archived : BooleanField : default True
 
-2. Item:
+2. Item(BaseModel):
    - name : CharField
    - description : TextField
    - height : FloatFiled : nullable
@@ -18,7 +18,7 @@
    - stock_qty : PositiveInteger
    - expiration_date : DateField : nullable
    
-3. Category:
+3. Category(BaseModel):
     - name : CharField
 
 ### EndPoints
@@ -26,21 +26,18 @@
 - api/products : GET
 - api/products : POST
 - api/products/id : GET
-- api/products/id : POST
 - api/products/id : PUT
 - api/products/id : PATCH
 - api/products/id : DELETE
 - api/categories : GET
 - api/categories : POST
 - api/categories/id : GET
-- api/categories/id : POST
 - api/categories/id : PUT
 - api/categories/id : PATCH
 - api/categories/id : DELETE
 - api/categories/id/products : GET
 - api/categories/id/products : POST
 - api/categories/id/products/id : GET
-- api/categories/id/products/id : POST
 - api/categories/id/products/id : PUT
 - api/categories/id/products/id : PATCH
 - api/categories/id/products/id : DELETE
