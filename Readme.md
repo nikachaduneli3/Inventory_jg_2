@@ -23,22 +23,22 @@
 
 ### EndPoints
 - api/about : GET
-- api/products : GET
-- api/products : POST
-- api/products/id : GET
-- api/products/id : PUT
-- api/products/id : PATCH
-- api/products/id : DELETE
+- api/items : GET
+- api/items : POST
+- api/items/id : GET
+- api/items/id : PUT
+- api/items/id : PATCH
+- api/items/id : DELETE
 - api/categories : GET
 - api/categories : POST
 - api/categories/id : GET
 - api/categories/id : PUT
 - api/categories/id : PATCH
 - api/categories/id : DELETE
-- api/categories/id/products : GET
-- api/categories/id/products : POST
-- api/categories/id/products/id : GET
-- api/categories/id/products/id : PUT
-- api/categories/id/products/id : PATCH
-- api/categories/id/products/id : DELETE
+- api/categories/id/items : GET
+- api/categories/id/items : POST
+- api/categories/id/items/id : GET
+- api/categories/id/items/id : PUT
+- api/categories/id/items/id : PATCH
+- api/categories/id/items/id : DELETE
 
