@@ -1,4 +1,3 @@
-from pandas.core.indexes import category
 from rest_framework import viewsets
 from .serializers import ItemSerializer, CategorySerializer
 from .models import Item, Category
