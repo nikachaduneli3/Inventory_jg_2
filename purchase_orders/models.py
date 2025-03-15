@@ -14,7 +14,7 @@ def generate_name():
 class PurchaseOrder(BaseModel):
     name = models.CharField(default=generate_name, editable=False, max_length=255, unique=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    completed = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False, editable=False,)
 
     def __str__(self):
 
