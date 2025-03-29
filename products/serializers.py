@@ -4,6 +4,8 @@ from .models import Item
 from datetime import date
 
 class ItemSerializer(serializers.ModelSerializer):
+    stock_qty = serializers.FloatField()
+
     class Meta:
         model = Item
         fields = '__all__'

@@ -1,9 +1,8 @@
-from django.template.defaultfilters import default
-
 from core.models import BaseModel
 from products.models import Item
 from django.db import models
 from django.contrib.auth.models import User
+from locations.models import Location
 
 def generate_name():
     prefix = 'P00'
@@ -15,6 +14,7 @@ class PurchaseOrder(BaseModel):
     name = models.CharField(default=generate_name, editable=False, max_length=255, unique=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     completed = models.BooleanField(default=False, editable=False,)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_purhcase_order')
 
     def __str__(self):
 
