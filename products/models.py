@@ -32,5 +32,6 @@ class Item(BaseModel):
                                editable=False, default=generate_barcode)
 
 
+
     def __str__(self):
         return self.name
