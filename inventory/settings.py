@@ -138,3 +138,9 @@ REST_FRAMEWORK = {
     ]
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "C:/Users/admin/task_manager/Inventory_jg_2/cache",
+    }
+}
