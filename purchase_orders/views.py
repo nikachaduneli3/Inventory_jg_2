@@ -1,14 +1,31 @@
 from rest_framework.viewsets import ModelViewSet
-from .serializers import PurchaseOrderSerializer, PurchaseOrderItemSerializer
+from .serializers import (PurchaseOrderSerializer,
+                          PurchaseOrderItemSerializer,
+                          ListPurchaseOrderItemSerializer)
 from .models import PurchaseOrder, PurchaseOrderItem
 from rest_framework.decorators import action, permission_classes
 from  rest_framework.response import Response
 from locations.models import ItemLocation
 
+from rest_framework.permissions import BasePermission
+from purchase_orders.models import PurchaseOrder
+
+class MangerCanValidate(BasePermission):
+    message = 'არ ხარ მენეჯერი ჯიგო !'
+
+    def has_permission(self, request, view):
+        id = view.kwargs.get('pk')
+        obj = PurchaseOrder.objects.get(id=id)
+        return request.user == obj.location.manager
 
 class PurchaseOrderViewSet(ModelViewSet):
     queryset = PurchaseOrder.objects.all()
     serializer_class = PurchaseOrderSerializer
+
+    def get_permissions(self):
+        if self.action=='validate':
+            return  [MangerCanValidate]
+
 
     @action(detail=True, methods=['post'])
     def validate(self, request, pk):
@@ -37,5 +54,8 @@ class PurchaseOrderItemViewSet(ModelViewSet):
     queryset = PurchaseOrderItem.objects.all()
     serializer_class = PurchaseOrderItemSerializer
 
-
+    def get_serializer_class(self, many=False):
+        if self.action == 'list':
+            return ListPurchaseOrderItemSerializer
+        return self.serializer_class
 

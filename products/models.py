@@ -37,7 +37,5 @@ class Item(BaseModel):
             sum += location_item.qty
         return  sum
 
-
-
     def __str__(self):
         return self.name

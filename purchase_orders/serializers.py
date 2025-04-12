@@ -14,9 +14,15 @@ class PurchaseOrderItemSerializer(serializers.ModelSerializer):
         model = PurchaseOrderItem
         fields = '__all__'
 
+class ListPurchaseOrderItemSerializer(serializers.ModelSerializer):
+    item_name = serializers.StringRelatedField(source='item', read_only=True)
+
+    class Meta:
+        model = PurchaseOrderItem
+        fields = ['id', 'item_name', 'quantity']
 
 class PurchaseOrderSerializer(serializers.ModelSerializer):
-    purchase_items = PurchaseOrderItemSerializer(many=True, read_only=True)
+    purchase_items = ListPurchaseOrderItemSerializer(many=True, read_only=True)
     class Meta:
         model = PurchaseOrder
         fields = '__all__'

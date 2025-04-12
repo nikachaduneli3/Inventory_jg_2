@@ -1,6 +1,7 @@
 from django.db import models
 from core.models import BaseModel
 from products.models import Item
+from locations.models import Location
 
 NAME_LENGTH = 7
 
@@ -14,6 +15,7 @@ def generate_name():
 class SaleOrder(BaseModel):
     name = models.CharField(max_length=NAME_LENGTH, default=generate_name, editable=False, unique=True)
     completed = models.BooleanField(default=False, editable=False)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='location_orders')
 
     def __str__(self):return self.name
 

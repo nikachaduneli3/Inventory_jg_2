@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
+
 from .models import SaleOrder, SaleOrderItem
 from products.models import Item
 
@@ -12,8 +14,16 @@ class SaleOrderItemSerializer(serializers.ModelSerializer):
         model = SaleOrderItem
         fields = '__all__'
 
+class ListSaleOrderItemSerializer(ModelSerializer):
+    item_name = serializers.StringRelatedField(source='item', read_only=True)
+
+    class Meta:
+        model = SaleOrderItem
+        fields = ['id', 'item_name', 'qty']
+
+
 class SaleOrderSerializer(serializers.ModelSerializer):
-    sale_items = SaleOrderItemSerializer(many=True, read_only=True)
+    sale_items = ListSaleOrderItemSerializer(many=True, read_only=True)
     class Meta:
         model = SaleOrder
         fields = '__all__'
