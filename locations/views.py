@@ -7,19 +7,24 @@ from django.views.decorators.vary import vary_on_cookie
 from django.core.cache import cache
 from django.contrib.auth.models import  User, AnonymousUser
 
+
 class LocationListCreateApiView(ListCreateAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
 
     def get_queryset(self):
-        queryset = super().get_queryset()
         user = self.request.user
-        cache_key = f'locations_{user.id}'
-        if user.id:
-            if cache.get(cache_key): return cache.get(cache_key)
-        if not user.is_superuser:
-            queryset = queryset.filter(manager_id=self.request.user.id)
-        cache.set(cache_key, queryset, 100)
+        queryset = cache.get(f'locations_{user.id}')
+        if queryset:
+            return queryset
+        if user.is_superuser:
+            queryset = self.queryset.all()
+        elif user.id:
+            queryset = self.queryset.filter(manager=user)
+        else:
+            return self.queryset.filter(manager=False)
+
+        cache.set(f'locations_{user.id}', queryset, 70)
         return queryset
 
 
